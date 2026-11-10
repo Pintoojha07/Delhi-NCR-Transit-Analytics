@@ -1,4 +1,5 @@
-D:\Projects
+<img width="1537" height="859" alt="Dashboard" src="https://github.com/user-attachments/assets/68990647-7cef-4b5f-bcd2-c6e7bca5d376" />
+
 
 # 🚇 Delhi-NCR Transit Analytics & Route Optimization
 

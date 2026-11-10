@@ -1,3 +1,5 @@
+![Power BI Dashboard](Dashboard.png)
+
 # 🚇 Delhi-NCR Transit Analytics & Route Optimization
 
 ## 📌 Project Overview
@@ -26,8 +28,6 @@ An end-to-end Data Analytics project analyzing commute patterns, transit bottlen
 - `ncr_transit_data.csv`: The core dataset containing trip origins, destinations, transport modes, and delays.
 - `queries.sql`: MySQL queries used for extracting business metrics and route optimizations.
 - `Dashboard.png`: High-resolution screenshot of the final Power BI dashboard.
-
-*(Note: Please open `Dashboard.png` to view the final visualizations of the extracted data).*
 
 ---
 ### 👨‍💻 Author

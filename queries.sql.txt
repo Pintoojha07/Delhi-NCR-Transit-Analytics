@@ -1,0 +1,67 @@
+-- DELHI-NCR TRANSIT DATA ANALYTICS
+
+-- 1. Database aur Table Setup
+CREATE DATABASE IF NOT EXISTS transit_db;
+USE transit_db;
+
+CREATE TABLE commute_data (
+    Trip_ID VARCHAR(50),
+    Date DATE,
+    Time TIME,
+    Origin VARCHAR(100),
+    Destination VARCHAR(100),
+    Transport_Mode VARCHAR(50),
+    Expected_Time_Mins INT,
+    Actual_Time_Mins INT,
+    Delay_Mins INT,
+    Day_of_Week VARCHAR(20)
+);
+
+-- Note: Data was imported directly using ncr_transit_data.csv 
+
+-- 2. KEY PERFORMANCE INDICATORS (KPIs)
+
+-- Total Commuters (Trips) and Overall Average Delay
+SELECT 
+    COUNT(Trip_ID) AS Total_Commuters,
+    ROUND(AVG(Delay_Mins), 2) AS Overall_Avg_Delay_Mins
+FROM commute_data;
+
+
+-- 3. ROUTE & TRANSPORT ANALYSIS
+
+-- Busiest Stations (Count of Trips by Origin)
+SELECT 
+    Origin, 
+    COUNT(Trip_ID) AS Total_Trips
+FROM commute_data
+GROUP BY Origin
+ORDER BY Total_Trips DESC;
+
+-- Transport Mode Bottlenecks (Average Delay by Vehicle Type)
+SELECT 
+    Transport_Mode,
+    COUNT(Trip_ID) AS Total_Trips,
+    ROUND(AVG(Delay_Mins), 2) AS Avg_Delay_Mins
+FROM commute_data
+GROUP BY Transport_Mode
+ORDER BY Avg_Delay_Mins DESC;
+
+
+-- 4. ADVANCED ANALYSIS (PEAK HOUR TRENDS)
+
+-- Peak Hour Traffic Analysis using CTE (Common Table Expression)
+WITH Hourly_Traffic AS (
+    SELECT 
+        HOUR(Time) AS Hour_of_Day,
+        COUNT(Trip_ID) AS Hourly_Commuters,
+        ROUND(AVG(Delay_Mins), 2) AS Hourly_Avg_Delay
+    FROM commute_data
+    GROUP BY HOUR(Time)
+)
+SELECT 
+    Hour_of_Day,
+    Hourly_Commuters,
+    Hourly_Avg_Delay
+FROM Hourly_Traffic
+ORDER BY Hour_of_Day ASC;
